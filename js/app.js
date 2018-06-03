@@ -73,6 +73,8 @@ function shuffle(array) {
  deckUL.addEventListener("click", function(event) {
    if (event.target.nodeName.toLowerCase() === "li") {
      toggleCardOpenShow(event.target);
+   } else if (event.target.nodeName.toLowerCase() === "i") {
+     toggleCardOpenShow(event.target.parentNode);
    }
  });
 
