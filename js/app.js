@@ -72,7 +72,15 @@ function shuffle(array) {
  */
  deckUL.addEventListener("click", function(event) {
    if (event.target.nodeName.toLowerCase() === "li") {
-     event.target.classList.toggle("open");
-     event.target.classList.toggle("show");
+     toggleCardOpenShow(event.target);
    }
  });
+
+/**
+ * @desc Toggles the obj's class
+ * @param {DOM object} obj The card to be targeted
+ */
+function toggleCardOpenShow(obj) {
+  obj.classList.toggle("open");
+  obj.classList.toggle("show");
+}
