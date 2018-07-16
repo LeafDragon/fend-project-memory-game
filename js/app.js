@@ -77,7 +77,10 @@ function shuffle(array) {
      if (holder.length === 0) {
        holder.push(event.target);
      } else if (holder.length === 1) {
-       if (holder[0].firstChild.classList[1] === event.target.firstChild.classList[1]) {
+       if (
+         holder[0].firstChild.classList[1] === event.target.firstChild.classList[1] &&
+         holder[0] !== event.target
+       ) {
          toggleCardOpenShow(holder[0]);
          holder[0].classList.add("match");
          toggleCardOpenShow(event.target);
