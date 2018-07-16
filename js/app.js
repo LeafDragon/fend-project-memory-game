@@ -92,8 +92,6 @@ deckUL.addEventListener("click", function(event) {
         holder.pop();
       }
     }
-  } else if (event.target.nodeName.toLowerCase() === "i") {
-    toggleCardOpenShow(event.target.parentNode);
   }
 });
 
