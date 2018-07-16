@@ -70,32 +70,32 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
- const holder = [];
- deckUL.addEventListener("click", function(event) {
-   if (event.target.nodeName.toLowerCase() === "li") {
-     toggleCardOpenShow(event.target);
-     if (holder.length === 0) {
-       holder.push(event.target);
-     } else if (holder.length === 1) {
-       if (
-         holder[0].firstChild.classList[1] === event.target.firstChild.classList[1] &&
-         holder[0] !== event.target
-       ) {
-         toggleCardOpenShow(holder[0]);
-         holder[0].classList.add("match");
-         toggleCardOpenShow(event.target);
-         event.target.classList.add("match");
-         holder.pop();
-       } else {
-         toggleCardOpenShow(holder[0]);
-         toggleCardOpenShow(event.target);
-         holder.pop();
-       }
-     }
-   } else if (event.target.nodeName.toLowerCase() === "i") {
-     toggleCardOpenShow(event.target.parentNode);
-   }
- });
+const holder = [];
+deckUL.addEventListener("click", function(event) {
+  if (event.target.nodeName.toLowerCase() === "li") {
+    toggleCardOpenShow(event.target);
+    if (holder.length === 0) {
+     holder.push(event.target);
+    } else if (holder.length === 1) {
+      if (
+        holder[0].firstChild.classList[1] === event.target.firstChild.classList[1] &&
+        holder[0] !== event.target
+      ) {
+        toggleCardOpenShow(holder[0]);
+        holder[0].classList.add("match");
+        toggleCardOpenShow(event.target);
+        event.target.classList.add("match");
+        holder.pop();
+      } else {
+        toggleCardOpenShow(holder[0]);
+        toggleCardOpenShow(event.target);
+        holder.pop();
+      }
+    }
+  } else if (event.target.nodeName.toLowerCase() === "i") {
+    toggleCardOpenShow(event.target.parentNode);
+  }
+});
 
 /**
  * @desc Toggles the obj's class
