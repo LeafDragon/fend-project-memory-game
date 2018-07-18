@@ -72,6 +72,7 @@ function shuffle(array) {
  */
 const holder = [];
 let matched = 0;
+let moves = 0
 deckUL.addEventListener("click", function(event) {
   if (matched === 8) {
     alert("you won");
@@ -96,7 +97,7 @@ deckUL.addEventListener("click", function(event) {
         event.target.classList.add("match");
         holder.pop();
         matched++;
-        if (matched === 8) alert("you won") ;
+        if (matched === 8) {alert("you won");}
       } else if (holder[0].firstChild.classList[1] !== event.target.firstChild.classList[1]) {
         toggleCardOpenIncorrect(holder[0]);
         toggleCardOpenIncorrect(event.target);
