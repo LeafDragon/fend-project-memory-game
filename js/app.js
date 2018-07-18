@@ -75,10 +75,16 @@ function shuffle(array) {
 const holder = [];
 let matched = 0;
 let movesCount = 0
+let startTime = 0;
+let stopTime = 0;
+let totalTime = 0;
 deckUL.addEventListener("click", function(event) {
   if (matched === 8) {
     alert("you won");
     return;
+  }
+  if (movesCount === 0) {
+    startTime = new Date();
   }
   movesCount++;
   moves.innerText = movesCount;
@@ -105,7 +111,12 @@ deckUL.addEventListener("click", function(event) {
         event.target.classList.add("match");
         holder.pop();
         matched++;
-        if (matched === 8) {alert("you won");}
+        if (matched === 8) {
+          stopTime = new Date();
+          totalTime = (stopTime.getTime() - startTime.getTime()) % 1000;
+          console.log(totalTime);
+        }
+        if (matched === 8) {alert("you won", totalTime);}
       } else if (holder[0].firstChild.classList[1] !== event.target.firstChild.classList[1]) {
         toggleCardOpenIncorrect(holder[0]);
         toggleCardOpenIncorrect(event.target);
