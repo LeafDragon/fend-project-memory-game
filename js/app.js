@@ -86,6 +86,19 @@ deckUL.addEventListener("click", function(event) {
         toggleCardOpenShow(event.target);
         event.target.classList.add("match");
         holder.pop();
+      } else if (
+        holder[0].firstChild.classList[1] !== event.target.firstChild.classList[1] &&
+        holder[0] !== event.target
+      ) {
+        toggleCardOpenIncorrect(holder[0]);
+        toggleCardOpenIncorrect(event.target);
+        setTimeout(() => {
+          toggleCardOpenIncorrect(holder[0]);
+          toggleCardOpenIncorrect(event.target);
+          toggleCardOpenShow(holder[0]);
+          toggleCardOpenShow(event.target);
+          holder.pop();
+        }, 500);
       } else {
         toggleCardOpenShow(holder[0]);
         toggleCardOpenShow(event.target);
@@ -102,4 +115,12 @@ deckUL.addEventListener("click", function(event) {
 function toggleCardOpenShow(obj) {
   obj.classList.toggle("open");
   obj.classList.toggle("show");
+}
+
+/**
+ * @desc Toggles the obj's class
+ * @param {DOM object} obj The card to be targeted
+ */
+function toggleCardOpenIncorrect(obj) {
+  obj.classList.toggle("incorrect");
 }
