@@ -1,3 +1,4 @@
+const moves = document.getElementById("moves");
 const deckUL = document.querySelector(".deck");
 
 /*
@@ -72,13 +73,14 @@ function shuffle(array) {
  */
 const holder = [];
 let matched = 0;
-let moves = 0
+let movesCount = 0
 deckUL.addEventListener("click", function(event) {
   if (matched === 8) {
     alert("you won");
     return;
   }
-  console.log(matched);
+  movesCount++;
+  moves.innerText = movesCount;
   if (
     event.target.nodeName.toLowerCase() === "li" &&
     event.target.classList[1] !== "match"
