@@ -75,21 +75,18 @@ deckUL.addEventListener("click", function(event) {
   if (event.target.nodeName.toLowerCase() === "li") {
     toggleCardOpenShow(event.target);
     if (holder.length === 0) {
-     holder.push(event.target);
-    } else if (holder.length === 1) {
-      if (
-        holder[0].firstChild.classList[1] === event.target.firstChild.classList[1] &&
-        holder[0] !== event.target
-      ) {
+      holder.push(event.target);
+    } else if (
+      holder.length === 1 &&
+      holder[0] !== event.target
+    ) {
+      if (holder[0].firstChild.classList[1] === event.target.firstChild.classList[1]) {
         toggleCardOpenShow(holder[0]);
         holder[0].classList.add("match");
         toggleCardOpenShow(event.target);
         event.target.classList.add("match");
         holder.pop();
-      } else if (
-        holder[0].firstChild.classList[1] !== event.target.firstChild.classList[1] &&
-        holder[0] !== event.target
-      ) {
+      } else if (holder[0].firstChild.classList[1] !== event.target.firstChild.classList[1]) {
         toggleCardOpenIncorrect(holder[0]);
         toggleCardOpenIncorrect(event.target);
         setTimeout(() => {
