@@ -71,7 +71,13 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 const holder = [];
+let matched = 0;
 deckUL.addEventListener("click", function(event) {
+  if (matched === 8) {
+    alert("you won");
+    return;
+  }
+  console.log(matched);
   if (event.target.nodeName.toLowerCase() === "li") {
     toggleCardOpenShow(event.target);
     if (holder.length === 0) {
@@ -86,6 +92,8 @@ deckUL.addEventListener("click", function(event) {
         toggleCardOpenShow(event.target);
         event.target.classList.add("match");
         holder.pop();
+        matched++;
+        if (matched === 8) alert("you won") ;
       } else if (holder[0].firstChild.classList[1] !== event.target.firstChild.classList[1]) {
         toggleCardOpenIncorrect(holder[0]);
         toggleCardOpenIncorrect(event.target);
@@ -95,7 +103,7 @@ deckUL.addEventListener("click", function(event) {
           toggleCardOpenShow(holder[0]);
           toggleCardOpenShow(event.target);
           holder.pop();
-        }, 500);
+        }, 300);
       }
     }
   }
