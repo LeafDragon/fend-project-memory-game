@@ -78,7 +78,10 @@ deckUL.addEventListener("click", function(event) {
     return;
   }
   console.log(matched);
-  if (event.target.nodeName.toLowerCase() === "li") {
+  if (
+    event.target.nodeName.toLowerCase() === "li" &&
+    event.target.classList[1] !== "match"
+  ) {
     toggleCardOpenShow(event.target);
     if (holder.length === 0) {
       holder.push(event.target);
