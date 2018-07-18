@@ -1,5 +1,6 @@
 const stars = document.getElementById("stars");
 const moves = document.getElementById("moves");
+const restartButton = document.getElementById("restart");
 const deckUL = document.querySelector(".deck");
 
 /*
@@ -33,6 +34,7 @@ const cardList = [
 shuffle(cardList);
 createCards(cardList);
 function createCards(obj) {
+  deckUL.innerHTML = "";
   const fragment = document.createDocumentFragment();
   for (let i = 0; i < obj.length; i++) {
     const li = document.createElement("li");
@@ -78,6 +80,18 @@ let movesCount = 0
 let startTime = 0;
 let stopTime = 0;
 let totalTime = 0;
+
+restartButton.addEventListener("click", () => {
+  matched = 0;
+  movesCount = 0;
+  startTime = 0;
+  stopTime = 0;
+  totalTime = 0;
+  shuffle(cardList);
+  createCards(cardList);
+  moves.innerText = movesCount;
+});
+
 deckUL.addEventListener("click", function(event) {
   if (matched === 8) {
     alert("you won");
