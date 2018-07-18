@@ -109,7 +109,7 @@ deckUL.addEventListener("click", function(event) {
 });
 
 /**
- * @desc Toggles the obj's class
+ * @desc Toggles the obj's classes for open and show
  * @param {DOM object} obj The card to be targeted
  */
 function toggleCardOpenShow(obj) {
@@ -118,7 +118,7 @@ function toggleCardOpenShow(obj) {
 }
 
 /**
- * @desc Toggles the obj's class
+ * @desc Toggles the obj's class for incorrect
  * @param {DOM object} obj The card to be targeted
  */
 function toggleCardOpenIncorrect(obj) {
