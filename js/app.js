@@ -1,3 +1,4 @@
+const stars = document.getElementById("stars");
 const moves = document.getElementById("moves");
 const deckUL = document.querySelector(".deck");
 
@@ -81,6 +82,11 @@ deckUL.addEventListener("click", function(event) {
   }
   movesCount++;
   moves.innerText = movesCount;
+  if (movesCount === 16) {
+    stars.removeChild(stars.childNodes[1]);
+  } else if (movesCount === 26) {
+    stars.removeChild(stars.childNodes[2]);
+  }
   if (
     event.target.nodeName.toLowerCase() === "li" &&
     event.target.classList[1] !== "match"
