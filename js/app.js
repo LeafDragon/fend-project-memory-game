@@ -99,10 +99,6 @@ deckUL.addEventListener("click", function(event) {
           toggleCardOpenShow(event.target);
           holder.pop();
         }, 500);
-      } else {
-        toggleCardOpenShow(holder[0]);
-        toggleCardOpenShow(event.target);
-        holder.pop();
       }
     }
   }
