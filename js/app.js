@@ -1,6 +1,6 @@
 const stars = document.getElementById("stars");
 const moves = document.getElementById("moves");
-const restartButton = document.getElementById("restart");
+const restart = document.getElementById("restart");
 const deckUL = document.querySelector(".deck");
 
 /*
@@ -81,7 +81,7 @@ let startTime = 0;
 let stopTime = 0;
 let totalTime = 0;
 
-restartButton.addEventListener("click", () => {
+restart.addEventListener("click", () => {
   matched = 0;
   movesCount = 0;
   startTime = 0;
