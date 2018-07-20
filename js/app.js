@@ -1,6 +1,7 @@
 const stars = document.getElementById("stars");
 const moves = document.getElementById("moves");
 const restart = document.getElementById("restart");
+const timer = document.getElementById("timer");
 const deckUL = document.querySelector(".deck");
 
 /*
@@ -76,29 +77,32 @@ function shuffle(array) {
  */
 const holder = [];
 let matched = 0;
-let movesCount = 0
-let startTime = 0;
-let stopTime = 0;
+let movesCount = 0;
+let secs = 0;
 let totalTime = 0;
 
 restart.addEventListener("click", () => {
   matched = 0;
   movesCount = 0;
-  startTime = 0;
-  stopTime = 0;
+  secs = 0;
+  clearInterval(totalTime);
   totalTime = 0;
   shuffle(cardList);
   createCards(cardList);
   moves.innerText = movesCount;
+  timer.innerText = secs;
 });
 
 deckUL.addEventListener("click", function(event) {
   if (matched === 8) {
+    clearInterval(totalTime);
     alert("you won");
     return;
   }
-  if (movesCount === 0) {
-    startTime = new Date();
+  if (totalTime === 0) {
+    totalTime = setInterval(() => {
+      timer.innerText = secs++;;
+    }, 1000);
   }
   movesCount++;
   moves.innerText = movesCount;
@@ -125,12 +129,8 @@ deckUL.addEventListener("click", function(event) {
         event.target.classList.add("match");
         holder.pop();
         matched++;
-        if (matched === 8) {
-          stopTime = new Date();
-          totalTime = (stopTime.getTime() - startTime.getTime()) % 1000;
-          console.log(totalTime);
-        }
-        if (matched === 8) {alert("you won", totalTime);}
+        clearInterval(totalTime);
+        if (matched === 8) {alert("you won");}
       } else if (holder[0].firstChild.classList[1] !== event.target.firstChild.classList[1]) {
         toggleCardOpenIncorrect(holder[0]);
         toggleCardOpenIncorrect(event.target);
