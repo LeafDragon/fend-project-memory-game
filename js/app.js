@@ -32,6 +32,7 @@ const cardList = [
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+createStars();
 shuffle(cardList);
 createCards(cardList);
 function createCards(obj) {
@@ -89,6 +90,7 @@ restart.addEventListener("click", () => {
   totalTime = 0;
   shuffle(cardList);
   createCards(cardList);
+  createStars();
   moves.innerText = movesCount;
   timer.innerText = secs;
 });
@@ -106,10 +108,8 @@ deckUL.addEventListener("click", function(event) {
   }
   movesCount++;
   moves.innerText = movesCount;
-  if (movesCount === 16) {
+  if (movesCount === 16 || movesCount === 26) {
     stars.removeChild(stars.childNodes[1]);
-  } else if (movesCount === 26) {
-    stars.removeChild(stars.childNodes[2]);
   }
   if (
     event.target.nodeName.toLowerCase() === "li" &&
@@ -161,4 +161,21 @@ function toggleCardOpenShow(obj) {
  */
 function toggleCardOpenIncorrect(obj) {
   obj.classList.toggle("incorrect");
+}
+
+/**
+ * @desc Creates the stars.
+ */
+function createStars() {
+  stars.innerHTML = "";
+  const fragment = document.createDocumentFragment();
+  for (let i = 0; i < 3; i++) {
+    const li = document.createElement("li");
+    const iStar = document.createElement("i");
+    li.appendChild(iStar);
+    iStar.classList.add("fa");
+    iStar.classList.add("fa-star");
+    fragment.appendChild(li);
+  }
+  stars.appendChild(fragment);
 }
