@@ -3,6 +3,7 @@ const moves = document.getElementById("moves");
 const restart = document.getElementById("restart");
 const timer = document.getElementById("timer");
 const deckUL = document.querySelector(".deck");
+const congratsBtn = document.getElementById("congrats-btn");
 
 /*
  * Create a list that holds all of your cards
@@ -98,7 +99,7 @@ restart.addEventListener("click", () => {
 deckUL.addEventListener("click", function(event) {
   if (matched === 8) {
     clearInterval(totalTime);
-    alert("you won");
+    congratsBtn.click();
     return;
   }
   if (totalTime === 0) {
@@ -130,7 +131,7 @@ deckUL.addEventListener("click", function(event) {
         holder.pop();
         matched++;
         clearInterval(totalTime);
-        if (matched === 8) {alert("you won");}
+        if (matched === 8) {congratsBtn.click();}
       } else if (holder[0].firstChild.classList[1] !== event.target.firstChild.classList[1]) {
         toggleCardOpenIncorrect(holder[0]);
         toggleCardOpenIncorrect(event.target);

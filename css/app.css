@@ -117,3 +117,7 @@ h1 {
   float: right;
   cursor: pointer;
 }
+
+#congrats-btn {
+  visibility: hidden;
+}
