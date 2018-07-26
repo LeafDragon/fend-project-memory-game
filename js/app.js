@@ -83,12 +83,18 @@ let movesCount = 0;
 let secs = 0;
 let totalTime = 0;
 
+totalTime = setInterval(() => {
+  timer.innerText = secs++;;
+}, 1000);
+
 restart.addEventListener("click", () => {
   matched = 0;
   movesCount = 0;
   secs = 0;
   clearInterval(totalTime);
-  totalTime = 0;
+  totalTime = setInterval(() => {
+    timer.innerText = secs++;;
+  }, 1000);
   shuffle(cardList);
   createCards(cardList);
   createStars();
@@ -101,11 +107,6 @@ deckUL.addEventListener("click", function(event) {
     clearInterval(totalTime);
     congratsBtn.click();
     return;
-  }
-  if (totalTime === 0) {
-    totalTime = setInterval(() => {
-      timer.innerText = secs++;;
-    }, 1000);
   }
   movesCount++;
   moves.innerText = movesCount;
