@@ -1,3 +1,14 @@
+/**
+ * @author Frank Dip
+ */
+
+/** ***********************************************************************
+ * Model
+ **************************************************************************/
+
+/** ***********************************************************************
+ * DOM
+ **************************************************************************/
 const stars = document.getElementById("stars");
 const moves = document.getElementById("moves");
 const restart = document.getElementById("restart");
@@ -5,9 +16,10 @@ const timer = document.getElementById("timer");
 const deckUL = document.querySelector(".deck");
 const congratsBtn = document.getElementById("congrats-btn");
 
-/*
- * Create a list that holds all of your cards
- */
+/** ***********************************************************************
+ * Variables
+ **************************************************************************/
+// Array of strings that are the cards.
 const cardList = [
   "fa-diamond",
   "fa-paper-plane-o",
@@ -27,66 +39,30 @@ const cardList = [
   "fa-bomb"
 ];
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
+const holder = []; // Holds the clicked card.
+let matched = 0; // Counts the matched cards.
+let movesCount = 0; // Counts the moves done.
+let secs = 0; // The seconds of the timer.
+let totalTime = 0; // The total time.
+
+/** ***********************************************************************
+ * Controller like code
+ **************************************************************************/
 createStars();
 shuffle(cardList);
 createCards(cardList);
-function createCards(obj) {
-  deckUL.innerHTML = "";
-  const fragment = document.createDocumentFragment();
-  for (let i = 0; i < obj.length; i++) {
-    const li = document.createElement("li");
-    const iCard = document.createElement("i");
-    li.classList.add("card");
-    li.appendChild(iCard);
-    iCard.classList.add("fa");
-    iCard.classList.add(obj[i]);
-    fragment.appendChild(li);
-  }
-  deckUL.appendChild(fragment);
-}
 
-// Shuffle function from http://stackoverflow.com/a/2450976
-function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-
-    return array;
-}
-
-
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
+/**
+ * @desc Starts the timer
  */
-const holder = [];
-let matched = 0;
-let movesCount = 0;
-let secs = 0;
-let totalTime = 0;
-
 totalTime = setInterval(() => {
   timer.innerText = secs++;;
 }, 1000);
 
+/**
+ * @desc Restart click listerner
+ * Restarts the game after clicking the restart button.
+ */
 restart.addEventListener("click", () => {
   matched = 0;
   movesCount = 0;
@@ -102,28 +78,43 @@ restart.addEventListener("click", () => {
   timer.innerText = secs;
 });
 
+/**
+ * @desc Card click listener
+ */
 deckUL.addEventListener("click", function(event) {
+  // Prevents the rest of the code from running, after winning.
   if (matched === 8) {
     clearInterval(totalTime);
     congratsBtn.click();
     return;
   }
+
+  // Moves counter and updateer
   movesCount++;
   moves.innerText = movesCount;
+
+  // Star rating updater
   if (movesCount === 16 || movesCount === 26) {
     stars.removeChild(stars.childNodes[1]);
   }
+
+  /**
+   * @desc Updates the cards
+   */
   if (
     event.target.nodeName.toLowerCase() === "li" &&
     event.target.classList[1] !== "match"
   ) {
+    /**
+     * @desc The first card clicked
+     */
     toggleCardOpenShow(event.target);
     if (holder.length === 0) {
       holder.push(event.target);
-    } else if (
-      holder.length === 1 &&
-      holder[0] !== event.target
-    ) {
+    } else if (holder.length === 1 && holder[0] !== event.target) {
+      /**
+       * @desc Matching cards code
+       */
       if (holder[0].firstChild.classList[1] === event.target.firstChild.classList[1]) {
         toggleCardOpenShow(holder[0]);
         holder[0].classList.add("match");
@@ -134,6 +125,9 @@ deckUL.addEventListener("click", function(event) {
         clearInterval(totalTime);
         if (matched === 8) {congratsBtn.click();}
       } else if (holder[0].firstChild.classList[1] !== event.target.firstChild.classList[1]) {
+        /**
+         * @desc The else if statement for not matching cards
+         */
         toggleCardOpenIncorrect(holder[0]);
         toggleCardOpenIncorrect(event.target);
         setTimeout(() => {
@@ -147,6 +141,49 @@ deckUL.addEventListener("click", function(event) {
     }
   }
 });
+
+/** ***********************************************************************
+ * Functions
+ **************************************************************************/
+
+/**
+ * @desc Shuffle function
+ * Shuffle function from http://stackoverflow.com/a/2450976
+ * @param {array} array Takes an array and shuffles it.
+ * @return {array} Returns an array.
+ */
+function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
+    while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+}
+
+/**
+ * @desc creates the cards
+ * @param {array} obj Takes an array of strings.
+ */
+function createCards(obj) {
+  deckUL.innerHTML = "";
+  const fragment = document.createDocumentFragment();
+  for (let i = 0; i < obj.length; i++) {
+    const li = document.createElement("li");
+    const iCard = document.createElement("i");
+    li.classList.add("card");
+    li.appendChild(iCard);
+    iCard.classList.add("fa");
+    iCard.classList.add(obj[i]);
+    fragment.appendChild(li);
+  }
+  deckUL.appendChild(fragment);
+}
 
 /**
  * @desc Toggles the obj's classes for open and show
